@@ -11,7 +11,7 @@ def criar_tabelas():
     cursor.execute('''
          CREATE TABLE IF NOT EXISTS doadores(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    nome TEXT NOT NULL,
+                    nome_doador TEXT NOT NULL,
                     idade INTEGER NOT NULL,
                     peso REAL,
                     tipo_sanguineo TEXT NOT NULL,
@@ -22,14 +22,14 @@ def criar_tabelas():
     conexao.close()
 
 
-def cadastrar_doador(nome, idade , peso , tipo_sanguineo, status):
+def cadastrar_doador(nome_doador, idade , peso , tipo_sanguineo, status):
     #Recebe os dados da pessoa e grava no banco
     conexao = conectar()
     cursor = conexao.cursor()
     cursor.execute('''
-        INSERT INTO doadores(nome , idade , peso ,tipo_sanguineo, status)
+        INSERT INTO doadores(nome_doador , idade , peso ,tipo_sanguineo, status)
         VALUES(?, ?, ?, ?,?)
-         ''', (nome, idade, peso , tipo_sanguineo, status))
+         ''', (nome_doador, idade, peso , tipo_sanguineo, status))
     conexao.commit()
     conexao.close()
 

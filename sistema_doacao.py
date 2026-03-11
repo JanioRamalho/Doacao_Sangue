@@ -1,5 +1,7 @@
 #Importação das funções do arquivo "Functions_database"
 from functions_databese import criar_tabelas , cadastrar_doador , buscar_doadores , deletar_doador
+import os
+
 
 def menu():
     criar_tabelas()
@@ -14,25 +16,43 @@ def menu():
         # O input precisa estar DENTRO do while para repetir sempre
         opcao = input('Selecione uma opção: ')
 
-
-          #CADASTRO E CHECAGEM DE APTIDÃO
+          #CADASTRO E CHECAGEM DE APTIDÃO       
         if opcao == "1":
-            nome = input('\nNome Completo: ')
-            idade = int(input(" Idade: "))                     
-            peso = int(input(f"Peso: ").isdigit())   
+            nome_doador = input('\nNome Completo: ')
+            idade = int(input("Idade: "))                     
+            peso = int(input("Peso: "))   
             tipo_sanguineo = input("Tipo Sanguíneo: ").upper()
             print("\n")
-
-
-            if idade >= 16 and idade <= 69 and peso <= 50:
+            if idade >= 16 and idade <= 69 and peso >= 50:
                 status = "APTO"
-                print(f'Parabéns,{nome}. Você passou na Pré Triagem, Aguarde a Triagem Clínica para seguir com o processo!')
+                print(f'Parabéns,{nome_doador}. Você passou na Pré Triagem, Aguarde a Triagem Clínica para seguir com o processo!')
             else:
                 status = "INAPTO"
-                print(f"Prezado,{nome}. Infelizmente você não passou no Exame de Aptidão e não poderá doar Sangue.")
+                print(f"Prezado,{nome_doador}. Infelizmente você não passou no Exame de Aptidão e não poderá doar Sangue.")
+
+            cadastrar_doador(nome_doador, idade, peso, tipo_sanguineo, status)
+            print(f"{nome_doador} foi cadastrado")
+
+        
+        elif opcao == "2":
+            lista_doadores = buscar_doadores()
+            for i, doador in enumerate(lista_doadores):
+                print(f'{i} {doador}')
+
+
+        elif opcao == "3": 
+            deletar_doador()
+
+        elif opcao == "4":
+            print("Processo Encerrado")
+            break 
+
+        else:
+            print("Opção inválida! Escolha uma opção entre 1 - 4")
+
         
 
-            
+     
 
 if __name__ == "__main__":
     menu()
